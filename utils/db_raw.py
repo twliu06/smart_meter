@@ -30,29 +30,19 @@ DB_URI = (
 # =========================
 # psycopg2：寫入 / 建表用
 # =========================
-@contextmanager
 def get_conn(autocommit: bool = True):
     """
-    給：
-    - create_table.py
-    - INSERT / UPDATE
-    - diff_etl 寫回資料庫
-
-    明確、可控、無 ORM
+    psycopg2 connection（給 ETL / insert / update）
     """
     conn = psycopg2.connect(**DB_CONFIG)
     conn.autocommit = autocommit
-    try:
-        yield conn
-    finally:
-        conn.close()
+    return conn
 
 
 # =========================
 # SQLAlchemy engine：查詢用
 # =========================
 _ENGINE = None
-
 
 def get_engine():
     """

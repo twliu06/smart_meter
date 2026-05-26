@@ -23,7 +23,7 @@ URL_VIRTUOSI = "http://172.18.5.109/WaWebService/JSON/GetDataLog/WebAccessEMS"
 #     # 強制修正為實體 IP，不論 .env 寫了什麼
 #     URL_VIRTUOSI = "http://172.18.5.109/WaWebService/JSON/GetDataLog/WebAccessEMS"
 
-print(f"共善樓目前使用的 URL 是: {URL_VIRTUOSI}")
+# print(f"共善樓目前使用的 URL 是: {URL_VIRTUOSI}")
 
 # 共善樓透過 Basic Auth
 BASIC_AUTH = ('admin', 'virtuosi')
