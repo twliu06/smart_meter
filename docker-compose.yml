@@ -1,0 +1,17 @@
+services:
+
+  smart_meter-etl:
+    build: .
+
+    container_name: smart_meter_etl
+
+    volumes:
+      - .:/app
+
+    tty: true
+
+    stdin_open: true
+
+    command: tail -f /dev/null
+
+    restart: unless-stopped
