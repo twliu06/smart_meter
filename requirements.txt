@@ -7,3 +7,4 @@ SQLAlchemy>=2.0,<2.1
 requests>=2.31.0
 matplotlib
 pendulum
+pytz
