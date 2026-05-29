@@ -1,7 +1,6 @@
 import pandas as pd
 from psycopg2.extras import execute_batch
-from datetime import datetime
-import pendulum
+from utils.time_utils import now_taipei
 from utils.db_raw import get_conn as get_raw_conn, get_engine as get_raw_engine
 from utils.db_stg import get_conn as get_stg_conn, get_engine as get_stg_engine
 
@@ -67,15 +66,13 @@ def run_diff_etl(
         print_log("⏸️ 無任何異動，資料完全一致")
         return
 
-    local_tz = pendulum.timezone("Asia/Taipei")
-    now_ts = pendulum.now(local_tz)
-    # print(f"現在台灣時間: {now_ts}")
+    now = now_taipei()
 
     # ===== INSERT =====
     if not insert_df.empty:
         insert_cols = key_cols + compare_cols + ["created_at", "updated_at"]
-        insert_df["created_at"] = now_ts
-        insert_df["updated_at"] = now_ts
+        insert_df["created_at"] = now
+        insert_df["updated_at"] = now
 
         insert_sql = f"""
             INSERT INTO {table_name} ({", ".join(insert_cols)})
@@ -103,7 +100,7 @@ def run_diff_etl(
     
     # ===== UPDATE =====
     if not update_df.empty:
-        update_df["updated_at"] = now_ts
+        update_df["updated_at"] = now
 
         set_sql = ", ".join(
             [f"{c} = %({c})s" for c in compare_cols]

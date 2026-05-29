@@ -1,6 +1,7 @@
 import os
 from datetime import datetime
 from typing import Optional
+from utils.time_utils import now_taipei
 
 
 def get_logger(
@@ -25,11 +26,11 @@ def get_logger(
 
     log_file = os.path.join(
         log_dir,
-        f"{log_prefix}_{datetime.now().strftime('%Y-%m-%d')}.log"
+        f"{log_prefix}_{now_taipei().strftime('%Y-%m-%d')}.log"
     )
 
     def _log(msg: str):
-        timestamped_msg = f"[{datetime.now().strftime('%Y-%m-%d %H:%M:%S')}] {msg}"
+        timestamped_msg = f"[{now_taipei().strftime('%Y-%m-%d %H:%M:%S')}] {msg}"
         print(timestamped_msg)
         with open(log_file, "a", encoding="utf-8") as f:
             f.write(timestamped_msg + "\n")
